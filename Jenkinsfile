@@ -5,23 +5,12 @@ pipeline {
     stages {
             
         
-        stage('Remote Connection Check'){
+        stage('Deploy a file'){
 	        steps{
-	        	def remote = [:]
-		        remote.name = 'do_master'
-		        remote.host = '188.166.114.130'
-		        remote.user = 'root'
-		        remote.password = 'BUaw9twzKJ'
-		        remote.allowAnyHosts = true
+	        	kubernetesDeploy configs: 'testremote.yaml', kubeConfig: [path: ''], kubeconfigId: '9d872ae9-c8ea-47b4-88cb-255013d7b1d8', secretName: '', ssh: [sshCredentialsId: '*', sshServer: ''], textCredentials: [certificateAuthorityData: '', clientCertificateData: '', clientKeyData: '', serverUrl: 'https://']
 	        }
         }
         
-
-        stage('Put Yaml File to Remote Cluster') {
-        	steps{
-        		sshPut remote: remote, from: 'testremote.yml', into: '/tmp/'
-        	}
-        } 
     
     }
 }
