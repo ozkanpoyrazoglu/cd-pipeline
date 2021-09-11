@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: testapp-deployment2
+  name: testapp-deployment
   namespace: default
   labels:
     app: testapp2
@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: testapp2
-        image: ozkanpoyrazoglu/ozkantestapp2:latest
+        image: ozkanpoyrazoglu/ozkantestapp2:%buildnumber%
         ports:
         - containerPort: 8080
           protocol: TCP
