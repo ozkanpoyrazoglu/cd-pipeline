@@ -20,9 +20,9 @@ sed -i \'s/%buildnumber%/$latestbuild/g\' deploymentsample.yaml '''
             }
         }
 
-        stage('Prepare Deployment'){
+        stage('Apply YAML file in k8s'){
             steps {
-                sh ''' cat deploysample.yaml '''
+                sh ''' kubectl apply -f deploymentsample.yaml '''
             }
         }
 
