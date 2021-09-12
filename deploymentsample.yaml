@@ -6,7 +6,7 @@ metadata:
   labels:
     app: testapp
 spec:
-  replicas: 3
+  replicas: 4
   selector:
     matchLabels:
       app: testapp
@@ -26,5 +26,5 @@ spec:
             port: 8080
   strategy:
     type: RollingUpdate
-
+    rollingUp      maxSurge: 25%
 
