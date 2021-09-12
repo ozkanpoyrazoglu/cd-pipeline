@@ -44,27 +44,23 @@ pipeline {
             }
         }
 
-        stage(' Duplicate Deployment Yaml') {
-            steps {
-                sh ' cp deploymentsample.yaml deploymentsample_green.yaml '
-            }
-        }
 
-        stage('Change role blue to green') {
+        stage('Change Service Role to new build') {
             steps {
-              script {
-                      buildVersion = sh(returnStdout: true, script: 'curl -X POST -L --user ozkan_poyrazoglu:116174b9818012a2ad096c6dbe62048a92 http://161.35.148.185:8080/job/ci_cd/job/build_pipeline_bcfm/lastSuccessfulBuild/buildNumber').trim()
-                }
-                sh " sed -i \'s/role: blue/role: green/g\' deploymentsample_green.yaml"  
+
+                sh " sed -i \'s/%buildnum%/${env.BUILD_NUMBER}/g\' servicesample.yaml "  
             }
             
         }
 
-        stage('Apply Deployment Role to green') {
+
+        stage('Update Service') {
             steps {
-                sh ' kubectl apply -f deploymentsample_green.yaml'
+                sh ' kubectl apply -f servicesample.yaml'
             }
         }
+
+
 
 
 

@@ -5,7 +5,7 @@ metadata:
   namespace: %namespace%
   labels:
     app: testapp
-    role: blue
+    role: %buildnum%
 spec:
   replicas: 2
   selector:

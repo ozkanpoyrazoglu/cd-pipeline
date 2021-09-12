@@ -1,0 +1,26 @@
+apiVersion: v1
+items:
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: "2021-09-10T08:19:49Z"
+    labels:
+      app: testapp
+      role: %buildnum%
+    name: testapp-deployment
+    namespace: testapp
+
+  spec:
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - port: 8080
+      protocol: TCP
+      targetPort: 8080
+    selector:
+      app: testapp
+      role: %buildnum%
+    sessionAffinity: None
+    type: ClusterIP
