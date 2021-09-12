@@ -4,7 +4,7 @@ pipeline {
      FOO = "foo"
    }
 
-    agent none
+    agent any
 
 
     stages {
