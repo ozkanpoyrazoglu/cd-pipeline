@@ -23,7 +23,7 @@ pipeline {
                 script {
                   buildVersion = sh(returnStdout: true, script: 'curl -X POST -L --user ozkan_poyrazoglu:116174b9818012a2ad096c6dbe62048a92 http://161.35.148.185:8080/job/ci_cd/job/build_pipeline_bcfm/lastSuccessfulBuild/buildNumber').trim()
                 }
-                sh " sed -i \'s/%buildnumber%/${buildVersion}/g\' deploymentsample.yaml && sed -i \'s/%namespace%/${env.namespace}/g\' deploymentsample.yaml "
+                sh " sed -i \'s/%buildnumber%/${buildVersion}/g\' deploymentsample.yaml && sed -i \'s/%namespace%/${env.namespace}/g\' deploymentsample.yaml && sed -i \'s/%buildnum%/${env.BUILD_NUMBER}/g\' deploymentsample.yaml "
 //                sh " sed -i \'s/%namespace%/${env.namespace}/g\' deploymentsample.yaml "
                 sh ' cat deploymentsample.yaml '
 
@@ -38,7 +38,32 @@ pipeline {
         }
 
 
+        stage('Wait for deployment') {
+            steps {
+                sh ' sleep 2 '
+            }
+        }
 
+        stage(' Duplicate Deployment Yaml') {
+            steps {
+                sh ' cp deploymentsample.yaml deploymentsample_green.yaml '
+            }
+        }
+
+        stage('Change role blue to green') {
+            script {
+                  buildVersion = sh(returnStdout: true, script: 'curl -X POST -L --user ozkan_poyrazoglu:116174b9818012a2ad096c6dbe62048a92 http://161.35.148.185:8080/job/ci_cd/job/build_pipeline_bcfm/lastSuccessfulBuild/buildNumber').trim()
+            }
+            sh " sed -i \'s/role: blue/role: green/g\' deploymentsample_green.yaml"
+        }
+
+        stage('Apply Deployment Role to green') {
+            steps {
+                sh ' kubectl apply -f deploymentsample_green.yaml'
+            }
+        }
+
+        
 
     }
 
