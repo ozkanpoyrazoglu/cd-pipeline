@@ -11,12 +11,12 @@ spec:
   selector:
     matchLabels:
       app: testapp
-      role: blue
+      role: %buildnum%
   template:
     metadata:
       labels:
         app: testapp
-        role: blue
+        role: %buildnum%
     spec:
       containers:
       - name: testapp
