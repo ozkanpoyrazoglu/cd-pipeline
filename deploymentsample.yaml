@@ -6,7 +6,7 @@ metadata:
   labels:
     app: testapp
 spec:
-  replicas: 4
+  replicas: 2
   selector:
     matchLabels:
       app: testapp
@@ -27,5 +27,5 @@ spec:
   strategy:
     type: RollingUpdate
     rollingUpdate:      
-      maxSurge: 25%
+      maxSurge: 50%
 
