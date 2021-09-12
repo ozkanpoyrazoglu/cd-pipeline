@@ -3,7 +3,7 @@ kind: Service
 metadata:
   labels:
     app: testapp
-    role: %buildnum%
+    role: deploy_%buildnum%
   name: testapp-deployment
   namespace: testapp
 spec:
@@ -17,6 +17,6 @@ spec:
     targetPort: 8080
   selector:
     app: testapp
-    role: deploy-%buildnum%
+    role: deploy_%buildnum%
   sessionAffinity: None
   type: ClusterIP
