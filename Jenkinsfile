@@ -24,7 +24,7 @@ pipeline {
                   buildVersion = sh(returnStdout: true, script: 'curl -X POST -L --user ozkan_poyrazoglu:116174b9818012a2ad096c6dbe62048a92 http://161.35.148.185:8080/job/ci_cd/job/build_pipeline/lastSuccessfulBuild/buildNumber').trim()
                 }
                 sh " sed -i \'s/%buildnumber%/${buildVersion}/g\' deploymentsample.yaml && sed -i \'s/%buildnumber%/${env.namespace}/g\' deploymentsample.yaml "
-//                sh " sed -i \'s/%buildnumber%/${env.namespace}/g\' deploymentsample.yaml "
+//                sh " sed -i \'s/%namespace%/${env.namespace}/g\' deploymentsample.yaml "
                 sh ' cat deploymentsample.yaml '
 
             }
