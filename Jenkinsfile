@@ -1,11 +1,11 @@
 pipeline {
     agent any
 
+    environment {
+        latestBuild = ' '
+    }
 
     stages {
-        environment {
-            latestBuild = ' '
-        }
 
 
         stage('Echo Latest Build Number'){
