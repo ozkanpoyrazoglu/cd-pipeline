@@ -21,6 +21,6 @@ items:
       targetPort: 8080
     selector:
       app: testapp
-      role: %buildnum%
+      role: deploy-%buildnum%
     sessionAffinity: None
     type: ClusterIP
