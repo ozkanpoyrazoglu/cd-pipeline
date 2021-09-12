@@ -1,8 +1,10 @@
+def awesomeVersion = 'UNKNOWN'
+
 pipeline {
     
-   environment {
-     FOO = "foo"
-   }
+   // environment {
+   //   FOO = "foo"
+   // }
 
     agent any
 
@@ -24,13 +26,17 @@ pipeline {
      
         stage('Edit YAML'){
             steps{
+                // script {
+                //     env.FOO = script 'curl -X POST -L --user ozkan_poyrazoglu:116174b9818012a2ad096c6dbe62048a92 http://161.35.148.185:8080/job/ci_cd/job/build_pipeline/lastSuccessfulBuild/buildNumber'
+                // }
+
                 script {
-                    env.FOO = script 'curl -X POST -L --user ozkan_poyrazoglu:116174b9818012a2ad096c6dbe62048a92 http://161.35.148.185:8080/job/ci_cd/job/build_pipeline/lastSuccessfulBuild/buildNumber'
+                  awesomeVersion = sh(returnStdout: true, script: 'curl -X POST -L --user ozkan_poyrazoglu:116174b9818012a2ad096c6dbe62048a92 http://161.35.148.185:8080/job/ci_cd/job/build_pipeline/lastSuccessfulBuild/buildNumber').trim()
                 }
                 // sh ''' FOO = $(curl -X POST -L --user ozkan_poyrazoglu:116174b9818012a2ad096c6dbe62048a92 http://161.35.148.185:8080/job/ci_cd/job/build_pipeline/lastSuccessfulBuild/buildNumber) 
                 
                 // '''
-                sh " sed -i \'s/%buildnumber%/${FOO}/g\' deploymentsample.yaml "
+                sh " sed -i \'s/%buildnumber%/${awesomeVersion}/g\' deploymentsample.yaml "
                 sh ' cat deploymentsample.yaml '
             }
         }
