@@ -1,4 +1,4 @@
-def awesomeVersion = 'UNKNOWN'
+def buildVersion = 'UNKNOWN'
 
 pipeline {
     
@@ -31,12 +31,12 @@ pipeline {
                 // }
 
                 script {
-                  awesomeVersion = sh(returnStdout: true, script: 'curl -X POST -L --user ozkan_poyrazoglu:116174b9818012a2ad096c6dbe62048a92 http://161.35.148.185:8080/job/ci_cd/job/build_pipeline/lastSuccessfulBuild/buildNumber').trim()
+                  buildVersion = sh(returnStdout: true, script: 'curl -X POST -L --user ozkan_poyrazoglu:116174b9818012a2ad096c6dbe62048a92 http://161.35.148.185:8080/job/ci_cd/job/build_pipeline/lastSuccessfulBuild/buildNumber').trim()
                 }
                 // sh ''' FOO = $(curl -X POST -L --user ozkan_poyrazoglu:116174b9818012a2ad096c6dbe62048a92 http://161.35.148.185:8080/job/ci_cd/job/build_pipeline/lastSuccessfulBuild/buildNumber) 
                 
                 // '''
-                sh " sed -i \'s/%buildnumber%/${awesomeVersion}/g\' deploymentsample.yaml "
+                sh " sed -i \'s/%buildnumber%/${buildVersion}/g\' deploymentsample.yaml "
                 sh ' cat deploymentsample.yaml '
             }
         }
