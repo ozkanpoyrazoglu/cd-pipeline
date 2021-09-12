@@ -24,3 +24,7 @@ items:
       role: deploy-%buildnum%
     sessionAffinity: None
     type: ClusterIP
+kind: List
+metadata:
+  resourceVersion: ""
+  selfLink: ""
