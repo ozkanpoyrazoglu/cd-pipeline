@@ -1,6 +1,9 @@
 pipeline {
     agent any
 
+    environtment {
+        latestBuild = ' '
+    }
 
     stages {
 
