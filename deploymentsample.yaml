@@ -5,18 +5,18 @@ metadata:
   namespace: %namespace%
   labels:
     app: testapp
-    role: deploy-%buildnum%
+    role: deploy_%buildnum%
 spec:
   replicas: 2
   selector:
     matchLabels:
       app: testapp
-      role: deploy-%buildnum%
+      role: deploy_%buildnum%
   template:
     metadata:
       labels:
         app: testapp
-        role: deploy-%buildnum%
+        role: deploy_%buildnum%
     spec:
       containers:
       - name: testapp
