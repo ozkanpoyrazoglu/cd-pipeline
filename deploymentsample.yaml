@@ -2,22 +2,29 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: testapp-deployment
-  namespace: default
+  namespace: %namespace%
   labels:
-    app: testapp2
+    app: testapp
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: testapp2
+      app: testapp
   template:
     metadata:
       labels:
-        app: testapp2
+        app: testapp
     spec:
       containers:
-      - name: testapp2
+      - name: testapp
         image: ozkanpoyrazoglu/ozkantestapp2:%buildnumber%
         ports:
         - containerPort: 8080
           protocol: TCP
+        readinessProbe:
+          httpGet:
+            port: 8080
+  strategy:
+    type: RollingUpdate
+
+
