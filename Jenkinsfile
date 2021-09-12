@@ -51,10 +51,13 @@ pipeline {
         }
 
         stage('Change role blue to green') {
-            script {
-                  buildVersion = sh(returnStdout: true, script: 'curl -X POST -L --user ozkan_poyrazoglu:116174b9818012a2ad096c6dbe62048a92 http://161.35.148.185:8080/job/ci_cd/job/build_pipeline_bcfm/lastSuccessfulBuild/buildNumber').trim()
+            steps {
+              script {
+                      buildVersion = sh(returnStdout: true, script: 'curl -X POST -L --user ozkan_poyrazoglu:116174b9818012a2ad096c6dbe62048a92 http://161.35.148.185:8080/job/ci_cd/job/build_pipeline_bcfm/lastSuccessfulBuild/buildNumber').trim()
+                }
+                sh " sed -i \'s/role: blue/role: green/g\' deploymentsample_green.yaml"  
             }
-            sh " sed -i \'s/role: blue/role: green/g\' deploymentsample_green.yaml"
+            
         }
 
         stage('Apply Deployment Role to green') {
@@ -63,7 +66,7 @@ pipeline {
             }
         }
 
-        
+
 
     }
 
