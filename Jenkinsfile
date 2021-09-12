@@ -40,7 +40,7 @@ pipeline {
 
         stage('Wait for deployment') {
             steps {
-                sh ' sleep 2 '
+                sh ' sleep 900 '
             }
         }
 
